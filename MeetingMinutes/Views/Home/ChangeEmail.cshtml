@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "更改邮箱";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section styles{
+    <style>
+        .form-control.is-valid ~ .invalid-feedback {
+            display: none;
+        }
+
+        .form-control.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .form-group .invalid-feedback {
+            display: none;
+        }
+
+        .form-group.has-error .invalid-feedback {
+            display: block;
+        }
+    </style>
+}
+
+<main class="main-container">
+    <div class="main-content">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">更改邮箱</h4>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <form name="newForm" novalidate role="form">
+                        <div class="form-group" show-errors>
+                            <label class="require" for="oldemail">旧的邮箱地址</label>
+                            <input class="form-control" type="email" id="oldemail" name="oldemail" ng-model="data.OldEmail" ng-required="true" autocomplete="off">
+                            <div>
+                                <ul class="list-unstyled">
+                                    <li class="invalid-feedback" ng-if="newForm.oldemail.$error.required">输入不能为空.</li>
+                                    <li class="invalid-feedback" ng-if="newForm.oldemail.$error">输入有效的Email地址.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="require" for="newemail">新的邮箱地址</label>
+                            <input class="form-control" type="email" id="newemail" name="newemail" ng-model="data.NewEmail" ng-required="true">
+                            <div>
+                                <ul class="list-unstyled">
+                                    <li class="invalid-feedback" ng-if="newForm.newemail.$error.required">输入不能为空.</li>
+                                    <li class="invalid-feedback" ng-if="newForm.newemail.$error">输入有效的Email地址.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="require" for="password">密码</label>
+                            <input class="form-control" ng-model="data.Password" id="password" name="password" type="password" ng-required="true">
+                            <div>
+                                <ul class="list-unstyled">
+                                    <li class="invalid-feedback" ng-if="newForm.password.$error.required">输入不能为空.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-bold btn-block btn-primary" type="submit" ng-click="changeEmail(data)">更改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

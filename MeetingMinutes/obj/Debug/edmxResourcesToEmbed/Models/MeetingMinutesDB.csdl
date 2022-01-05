@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="meetingminutesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="Meetings" Relationship="Self.FK_Meeting_AspNetUsers" FromRole="AspNetUsers" ToRole="Meeting" />
+    <NavigationProperty Name="MeetingInvites" Relationship="Self.FK_MeetingInvite_AspNetUsers" FromRole="AspNetUsers" ToRole="MeetingInvite" />
+    <NavigationProperty Name="TaskAssigns" Relationship="Self.FK_TaskAssign_AspNetUsers" FromRole="AspNetUsers" ToRole="TaskAssign" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Decision">
+    <Key>
+      <PropertyRef Name="vDecisionID" />
+    </Key>
+    <Property Name="vDecisionID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vAgendaID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vDecisionDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="MeetingAgenda" Relationship="Self.FK_Decision_MeetingAgenda" FromRole="Decision" ToRole="MeetingAgenda" />
+    <Property Name="iIndex" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Meeting">
+    <Key>
+      <PropertyRef Name="vMeetingID" />
+    </Key>
+    <Property Name="vMeetingID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="vTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="tStartTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="tEndTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="vLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Meeting_AspNetUsers" FromRole="Meeting" ToRole="AspNetUsers" />
+    <NavigationProperty Name="MeetingAgendas" Relationship="Self.FK_MeetingAgenda_Meeting" FromRole="Meeting" ToRole="MeetingAgenda" />
+    <NavigationProperty Name="MeetingInvites" Relationship="Self.FK_MeetingInvite_Meeting" FromRole="Meeting" ToRole="MeetingInvite" />
+  </EntityType>
+  <EntityType Name="MeetingAgenda">
+    <Key>
+      <PropertyRef Name="vAgendaID" />
+    </Key>
+    <Property Name="vAgendaID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vMeetingID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vAgendaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="vAgendaDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Decisions" Relationship="Self.FK_Decision_MeetingAgenda" FromRole="MeetingAgenda" ToRole="Decision" />
+    <NavigationProperty Name="Meeting" Relationship="Self.FK_MeetingAgenda_Meeting" FromRole="MeetingAgenda" ToRole="Meeting" />
+    <NavigationProperty Name="MeetingTasks" Relationship="Self.FK_MeetingTask_MeetingAgenda" FromRole="MeetingAgenda" ToRole="MeetingTask" />
+    <Property Name="iIndex" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MeetingInvite">
+    <Key>
+      <PropertyRef Name="vMeetingInviteID" />
+    </Key>
+    <Property Name="vMeetingInviteID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vMeetingID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_MeetingInvite_AspNetUsers" FromRole="MeetingInvite" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Meeting" Relationship="Self.FK_MeetingInvite_Meeting" FromRole="MeetingInvite" ToRole="Meeting" />
+    <Property Name="iIndex" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MeetingTask">
+    <Key>
+      <PropertyRef Name="vTaskID" />
+    </Key>
+    <Property Name="vTaskID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vAgendaID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vTaskDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="MeetingAgenda" Relationship="Self.FK_MeetingTask_MeetingAgenda" FromRole="MeetingTask" ToRole="MeetingAgenda" />
+    <NavigationProperty Name="TaskAssigns" Relationship="Self.FK_TaskAssign_MeetingTask" FromRole="MeetingTask" ToRole="TaskAssign" />
+    <Property Name="iIndex" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TaskAssign">
+    <Key>
+      <PropertyRef Name="vTaskAssignID" />
+    </Key>
+    <Property Name="vTaskAssignID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vTaskID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_TaskAssign_AspNetUsers" FromRole="TaskAssign" ToRole="AspNetUsers" />
+    <NavigationProperty Name="MeetingTask" Relationship="Self.FK_TaskAssign_MeetingTask" FromRole="TaskAssign" ToRole="MeetingTask" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Meeting_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Meeting">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingInvite_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="MeetingInvite" Type="Self.MeetingInvite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MeetingInvite">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskAssign_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="TaskAssign" Type="Self.TaskAssign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TaskAssign">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Decision_MeetingAgenda">
+    <End Role="MeetingAgenda" Type="Self.MeetingAgenda" Multiplicity="1" />
+    <End Role="Decision" Type="Self.Decision" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingAgenda">
+        <PropertyRef Name="vAgendaID" />
+      </Principal>
+      <Dependent Role="Decision">
+        <PropertyRef Name="vAgendaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingAgenda_Meeting">
+    <End Role="Meeting" Type="Self.Meeting" Multiplicity="1" />
+    <End Role="MeetingAgenda" Type="Self.MeetingAgenda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meeting">
+        <PropertyRef Name="vMeetingID" />
+      </Principal>
+      <Dependent Role="MeetingAgenda">
+        <PropertyRef Name="vMeetingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingInvite_Meeting">
+    <End Role="Meeting" Type="Self.Meeting" Multiplicity="1" />
+    <End Role="MeetingInvite" Type="Self.MeetingInvite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meeting">
+        <PropertyRef Name="vMeetingID" />
+      </Principal>
+      <Dependent Role="MeetingInvite">
+        <PropertyRef Name="vMeetingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingTask_MeetingAgenda">
+    <End Role="MeetingAgenda" Type="Self.MeetingAgenda" Multiplicity="1" />
+    <End Role="MeetingTask" Type="Self.MeetingTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingAgenda">
+        <PropertyRef Name="vAgendaID" />
+      </Principal>
+      <Dependent Role="MeetingTask">
+        <PropertyRef Name="vAgendaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskAssign_MeetingTask">
+    <End Role="MeetingTask" Type="Self.MeetingTask" Multiplicity="1" />
+    <End Role="TaskAssign" Type="Self.TaskAssign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeetingTask">
+        <PropertyRef Name="vTaskID" />
+      </Principal>
+      <Dependent Role="TaskAssign">
+        <PropertyRef Name="vTaskID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="meetingminutesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="Decisions" EntityType="Self.Decision" />
+    <EntitySet Name="Meetings" EntityType="Self.Meeting" />
+    <EntitySet Name="MeetingAgendas" EntityType="Self.MeetingAgenda" />
+    <EntitySet Name="MeetingInvites" EntityType="Self.MeetingInvite" />
+    <EntitySet Name="MeetingTasks" EntityType="Self.MeetingTask" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TaskAssigns" EntityType="Self.TaskAssign" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meeting_AspNetUsers" Association="Self.FK_Meeting_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Meeting" EntitySet="Meetings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingInvite_AspNetUsers" Association="Self.FK_MeetingInvite_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="MeetingInvite" EntitySet="MeetingInvites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskAssign_AspNetUsers" Association="Self.FK_TaskAssign_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="TaskAssign" EntitySet="TaskAssigns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Decision_MeetingAgenda" Association="Self.FK_Decision_MeetingAgenda">
+      <End Role="MeetingAgenda" EntitySet="MeetingAgendas" />
+      <End Role="Decision" EntitySet="Decisions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingAgenda_Meeting" Association="Self.FK_MeetingAgenda_Meeting">
+      <End Role="Meeting" EntitySet="Meetings" />
+      <End Role="MeetingAgenda" EntitySet="MeetingAgendas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingInvite_Meeting" Association="Self.FK_MeetingInvite_Meeting">
+      <End Role="Meeting" EntitySet="Meetings" />
+      <End Role="MeetingInvite" EntitySet="MeetingInvites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingTask_MeetingAgenda" Association="Self.FK_MeetingTask_MeetingAgenda">
+      <End Role="MeetingAgenda" EntitySet="MeetingAgendas" />
+      <End Role="MeetingTask" EntitySet="MeetingTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskAssign_MeetingTask" Association="Self.FK_TaskAssign_MeetingTask">
+      <End Role="MeetingTask" EntitySet="MeetingTasks" />
+      <End Role="TaskAssign" EntitySet="TaskAssigns" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(meetingminutesModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(meetingminutesModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

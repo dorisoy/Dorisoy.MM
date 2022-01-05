@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Create Meeting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+<link href="~/Content/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="~/Content/assets/vendor/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="~/Content/assets/vendor/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
+}
+
+
+<main class="main-container" ng-controller="meeting">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="card col-6">
+                <div class="card-body" ng-init="editData()">
+                    <form name="newForm" novalidate role="form">
+                        
+                        <div class="tab-content">
+                            <div ng-show="crmt" id="wizard-form-1">
+                                <h3>创建会议</h3>
+                                <hr />
+                                <div class="form-group" show-errors>
+                                    <label class="required">标题</label>
+                                    <input id="title" name="title" class="form-control" type="text" required ng-model="data.vTitle">
+                                </div>
+
+                                <div class="form-group" show-errors>
+                                    <label>会议日期</label>
+                                    <input id="date" name="date" placeholder="会议举行日期" data-date-format="MM dd,yyyy" type="text" data-provide="datepicker" data-date-today-highlight="true" class="form-control" ng-model="data.dDate" required>
+                                </div>
+
+                                <div class="form-group" show-errors>
+                                    <label>开始时间</label>
+                                    <input id="starttime" name="starttime" placeholder="会议开始时间" type="text" data-provide="timepicker" class="form-control" ng-model="data.startTime" required>
+                                </div>
+
+                                <div class="form-group" show-errors>
+                                    <label>结束时间</label>
+                                    <input id="endtime" name="endtime" placeholder="会议结束时间" type="text" data-provide="timepicker" class="form-control" ng-model="data.endTime" required>
+                                </div>
+
+                                <div class="form-group" show-errors>
+                                    <label>场所位置</label>
+                                    @*<input id="location" name="location" class="form-control" type="text" required ng-model="data.vLocation">*@
+                                    <select id="location" name="location" ng-model="data.vLocation" class="form-control form-control-lg select2">
+                                        <option value="0" selected="selected">选择会议场地</option>
+                                        <option ng-repeat="u in data.locations" ng-value="u.Id">{{u.Name}}</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div ng-hide="crmt" id="wizard-form-2" data-provide="validation">
+                                <h3>邀请用户</h3>
+                                <hr />
+                                <label>允许其他人访问此会议</label>
+                                <div class="input-group">
+                                    <div style="width:70%;">
+                                        <select id="user" size="5" multiple name="user" ng-model="userSelects" class="form-control form-control-lg select2">
+                                            <option ng-repeat="u in data.user" ng-value="u.Id">{{u.UserName}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="input-group-append" style="width: 30%;">
+                                        <button class="btn btn-cyan btn-bold" style="width: 100%;" type="button" ng-click="invite(userSelects)">邀请</button>
+                                    </span>
+                                </div>
+
+                                <table class="table table-separated">
+                                    <tbody>
+                                        <tr ng-repeat="ui in data.meetingInvitesList">
+                                            <td style="width: 10%;">
+                                                <input type="hidden" ng-model="ui.iIndex = $index" ng-model-options="{getterSetter: true}" />
+                                                <label ng-bind="$index+1"></label>
+                                            </td>
+                                            <td ng-bind="ui.UserName"></td>
+                                            <td class="text-right table-actions">
+                                                <a class="table-action hover-danger" href="#" ng-click="removeInvites($index)"><i class="ti-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div ng-class="class">
+                            <button class="btn btn-secondary" type="button" ng-show="back" ng-click="crmt = true; back = false; next = true; save = false; class='text-right'">返回</button>
+                            <button class="btn btn-secondary" type="button" ng-show="next" ng-click="nextClick();">下一步</button>
+                            <button class="btn btn-primary" ng-show="save" type="submit" ng-click="saveMeeting(data)">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    @section scripts{
+        <script src="~/Content/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/Content/assets/vendor/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="~/Content/assets/vendor/bootstrap-validator/validator.js"></script>
+        <script src="~/Scripts/Projects/Home/Meeting.js"></script>
+
+    }
+
+
+
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f4d30e56d4b446fb877e5c1a4117d313" Name="Diagram1">
+        <EntityTypeShape EntityType="meetingminutesModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.AspNetUser" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.Decision" Width="1.5" PointX="9.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.Meeting" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.MeetingAgenda" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.MeetingInvite" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.MeetingTask" Width="1.5" PointX="9.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="meetingminutesModel.TaskAssign" Width="1.5" PointX="12" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="meetingminutesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_Meeting_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_MeetingInvite_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_TaskAssign_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_Decision_MeetingAgenda" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_MeetingAgenda_Meeting" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_MeetingInvite_Meeting" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_MeetingTask_MeetingAgenda" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.FK_TaskAssign_MeetingTask" ManuallyRouted="false" />
+        <AssociationConnector Association="meetingminutesModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

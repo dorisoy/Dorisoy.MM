@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "个人信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="main-container" ng-controller="meeting">
+    <div class="main-content"  ng-init="GetBasicData()">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">个人信息</h4>
+            </div>
+
+            <div class="card-body row">
+                <div class="col-2">
+                    <label style="font-size: x-large; padding-bottom: 2px;" class="flexbox"><span>用户名</span><span>:</span></label>
+                    <label style="font-size: x-large; padding-bottom: 2px;" class="flexbox"><span>邮箱</span><span>:</span></label>
+                    <label style="font-size: x-large; padding-bottom: 2px;" class="flexbox"><span>密码</span><span>:</span></label>
+                </div>
+                <div class="col-8">
+                    <label class="col-12" style="font-size: x-large; padding-bottom: 2px;" ng-bind="data.userdata.UserName"></label>
+                    <div class="col-12 flexbox" style="padding-bottom: 2px;">
+                        <label style="font-size: x-large;" ng-bind="data.userdata.Email"></label>
+                        <a class="btn btn-primary" href="~/Home/ChangeEmail">更改邮箱</a>
+                    </div>
+                    <div class="col-12 flexbox">
+                        <label style="font-size: x-large;">******</label>
+                        <a class="btn btn-primary" href="~/Home/ChangePassword">更改密码</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+@section scripts{
+    <script src="~/Scripts/Projects/Home/Meeting.js"></script>
+}

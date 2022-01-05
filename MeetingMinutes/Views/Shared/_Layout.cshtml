@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive admin dashboard and web application ui kit. ">
+    <meta name="keywords" content="blank, starter">
+
+    <title>@ViewBag.Title</title>
+    
+    <!-- Fonts -->
+    @*<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,300i" rel="stylesheet">*@
+    <!-- Styles -->
+    <link href="~/Content/assets/css/core.min.css" rel="stylesheet">
+    <link href="~/Content/assets/css/app.css" rel="stylesheet">
+    <link href="~/Content/assets/css/style.min.css" rel="stylesheet">
+    @RenderSection("styles", required: false)
+
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="~/Content/assets/img/logo.png">
+    <link rel="icon" href="~/Content/assets/img/favicon.ico">
+
+    <style>
+        .form-control.is-valid ~ .invalid-feedback {
+            display: none;
+        }
+
+        .form-control.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .form-group .invalid-feedback {
+            display: none;
+        }
+
+        .form-group.has-error .invalid-feedback {
+            display: block;
+        }
+
+    </style>
+
+</head>
+
+<body ng-app="app" ng-controller="global" ng-init="GetProfileImg()">
+
+    <!-- Preloader -->
+    @*<div class="preloader">
+        <div class="spinner-dots">
+            <span class="dot1"></span>
+            <span class="dot2"></span>
+            <span class="dot3"></span>
+        </div>
+    </div>*@
+
+
+    
+    <!-- Topbar -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="dropdown">
+                <a class="topbar-btn" href="~/Home/Meeting"><i class="icon ti-menu-alt"></i> 会议</a>
+            </div>
+            <div class="dropdown">
+                <a class="topbar-btn" href="~/Home/CreateMeeting"><i class="icon ti-plus"></i> 创建会议</a>
+            </div>
+            <div class="dropdown">
+                <a class="topbar-btn" href="~/Home/MeetingInvited"><i class="icon ti-clipboard"></i> 会议邀请</a>
+            </div>
+            <div class="dropdown">
+                <a class="topbar-btn" href="~/Home/Task"><i class="icon ti-layers-alt"></i> 任务</a>
+            </div>
+        </div>
+
+        <div class="topbar-right">
+
+            <ul class="topbar-btns">
+                <li class="dropdown">
+                    <span class="topbar-btn" data-toggle="dropdown"><img class="avatar avatar-sm" ng-src="~/Content/assets/img/logo.png" alt="..."></span>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="~/Home/UserProfile"><i class="ti-user"></i> 个人信息</a>
+                        <a class="dropdown-item" href="~/Home/ChangePassword"><i class="ti-settings"></i> 更改密码</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" ng-click="logout()"><i class="ti-power-off"></i> 注销</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </header>
+    <!-- END Topbar -->
+    @RenderBody()
+    
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center text-md-left">Copyright © @DateTime.Now.Year <a href="http://xamarin.top" target="_blank">Dorisoy</a>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- END Footer -->
+
+        
+        <!-- Scripts -->
+        <script src="~/Content/assets/js/core.min.js"></script>
+        <script src="~/Content/assets/js/app.js"></script>
+        <script src="~/Content/assets/js/script.min.js"></script>
+        @Scripts.Render("~/bundles/Global/code")
+
+        @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

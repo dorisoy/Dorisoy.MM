@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Dorisoy.MM 是一款在线会议纪要生成助手. ">
+    <meta name="keywords" content="Dorisoy.MM 是一款在线会议纪要生成助手">
+    <title>登录 &mdash; Dorisoy.MM</title>
+    <!-- Fonts -->
+    @*<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,300i" rel="stylesheet">*@
+    <!-- Styles -->
+    <link href="~/content/assets/css/core.min.css" rel="stylesheet" />
+    <link href="~/content/assets/css/app.css" rel="stylesheet" />
+    <link href="~/content/assets/css/style.min.css" rel="stylesheet" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="~/Content/assets/img/logo.png">
+    <link rel="icon" href="~/Content/assets/img/favicon.ico">
+
+    <style>
+        .form-control.is-valid ~ .invalid-feedback {
+            display: none;
+        }
+
+        .form-control.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .form-group .invalid-feedback {
+            display: none;
+        }
+
+        .form-group.has-error .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+
+<body ng-app="app" ng-controller="cLogin">
+
+    <div class="row no-gutters min-h-fullscreen bg-white">
+        <div class="col-md-6 col-lg-7 col-xl-8 d-none d-md-block bg-img" style="background-image: url({{background}})" data-overlay="2">
+            <div class="row h-100 pl-50">
+                <div class="col-md-10 col-lg-8 align-self-end">
+                    <img src="~/Content/assets/img/logo.png" width="80x80" alt="...">
+                    <br><br><br>
+                            <h4 class="text-white">在线会议纪要管理助手</h4>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-5 col-xl-4 align-self-center">
+            <div class="px-80 py-30">
+                <h4>登录</h4>
+                <p><small>登录您的帐户</small></p>
+                <br>
+                <form name="loginForm" novalidate role="form">
+                    <div class="form-group" show-errors>
+                        <label for="email">用户名</label>
+                        <input class="form-control" type="text" id="email" name="email" ng-model="data.Email" ng-required="true">
+                        <div class="invalid-feedback" ng-if="loginForm.email.$error.required">不能为空.</div>
+                    </div>
+                    <div class="form-group" show-errors>
+                        <label for="password">密码</label>
+                        <input type="password" ng-model="data.Password" class="form-control" id="password" name="password" ng-required="true">
+                        <div class="invalid-feedback" ng-if="loginForm.password.$error.required">不能为空.</div>
+                    </div>
+                    <div class="form-group flexbox">
+                            <a class="text-muted hover-primary fs-13" href="~/Home/RecoverPassword">忘记密码?</a>
+                        </div>
+                    <div class="form-group">
+                        <button class="btn btn-bold btn-block btn-primary" type="submit" ng-click="login(data)">登录</button>
+                    </div>
+                </form>
+                <hr class="w-30px">
+                <p class="text-center text-muted fs-13 mt-20">还没有账户? <a class="text-primary fw-500" href="~/Home/Registration">注册</a></p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="~/content/assets/js/core.min.js"></script>
+    <script src="~/content/assets/js/app.js"></script>
+    <script src="~/Content/assets/js/script.min.js"></script>
+
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/Projects/Global/sweetalert.min.js"></script>
+    <script src="~/Scripts/Projects/Global/app.js"></script>
+    <script src="~/Scripts/Projects/Home/Login.js"></script>
+</body>
+</html>

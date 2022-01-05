@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Agenda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+
+}
+
+<main class="main-container" ng-controller="meeting">
+    <header class="header no-border" ng-init="editData()">
+        <div class="header-info">
+            <div class="left">
+                <h2 class="header-title">
+                    <strong ng-bind="data.vTitle"></strong>
+                    <small class="subtitle"><i class="ti-calendar"></i> <span ng-bind="data.DoW"></span>, <span ng-bind="data.dDate"></span>  <i class="ti-time"></i> <span ng-bind="data.startTime"></span> - <span ng-bind="data.endTime"></span> <i class="ti-location-pin"></i> <span ng-bind="data.vLocation"></span></small>
+                </h2>
+            </div>
+
+            <div class="right gap-items-2">
+                <a class="btn btn-secondary btn-square btn-round" href="#" data-provide="tooltip" title="Save Meeting" ng-click="saveAgenda(data)"><i class="ti-save"></i></a>
+                <a class="btn btn-danger btn-square btn-round" href="#" data-provide="tooltip" title="Delete Meeting" ng-click="ConfirmDialog(data.vMeetingID)"><i class="ti-trash"></i></a>
+                <a class="btn btn-secondary btn-square btn-round" ng-href="MeetingDetails?{{data.vMeetingID}}" data-provide="tooltip" title="Print Meeting"><i class="ti-printer"></i></a>
+            </div>
+        </div>
+    </header>
+    <div class="main-content">
+
+        <div class="card">
+            <h4 class="card-title">议程清单</h4>
+
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="添加议程明细 ..." ng-model="AgendaItem">
+                    <span class="input-group-append">
+                        <button class="btn btn-light" type="button" ng-click="addAgenda(AgendaItem)">添加议程</button>
+                    </span>
+                </div>
+                <hr>
+                <div class="accordion" id="accordion-1">
+                    <div class="card" ng-repeat="al in data.AgendaList" style="border: 1px solid #67696b !important;">
+                        <input type="hidden" ng-model="al.iIndex = $index" ng-model-options="{getterSetter: true}" />
+                        <h5 class="card-title flexbox" style="padding: 10px 20px;">
+                            <a data-toggle="collapse" data-parent="#accordion-1" href="#collapse-{{$index + 1}}" style="font-weight: bold;">议程 #{{$index + 1}}</a>
+                            <button class="btn btn-danger" href="#" ng-click="removeAgenda($index)"><i class="ti-trash"> </i>删除议程</button>
+                        </h5>
+
+                        <div id="collapse-{{$index + 1}}" class="collapse show">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="textarea">议程</label>
+                                            <input type="text" class="form-control form-control-lg" ng-model="al.vAgendaName" style="font-size:xx-large;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="textarea">议程内容</label>
+                                            <textarea class="form-control" id="textarea" rows="6" spellcheck="false" ng-model="al.vAgendaDetails"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-5"><label>添加任务</label></div>
+                                            <div class="col-3"><label>人户列表</label></div>
+                                            <div class="col-3"><label>任务分配给用户</label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row align-items-center" ng-repeat="altl in al.MeetingTasks">
+                                            <input type="hidden" ng-model="altl.iIndex = $index" ng-model-options="{getterSetter: true}" />
+                                            <div class="col-5">
+                                                <textarea class="form-control" rows="3" ng-model="altl.vTaskDetails"></textarea>
+                                            </div>
+                                            <div class="col-2">
+                                                <select class="form-control select2" multiple size="4" ng-model="altl.TaskAssigns">
+                                                    <option ng-repeat="iu in data.user" ng-value="iu">{{iu.UserName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-1" style="text-align:center;">
+                                                <a class="btn btn-cyan btn-bold" id="btn-new-item" href="#" ng-click="assign(al.iIndex, $index, altl.TaskAssigns)" title="Assign Users"><i class="ti-arrow-right fs-10"></i></a>
+                                            </div>
+                                            <div class="col-3">
+                                                <textarea class="form-control" rows="3" ng-model="altl.taskAssigntoUser" readonly></textarea>
+                                            </div>
+                                            <div class="col-1" style="text-align:center;">
+                                                <a class="text-danger pl-12" style="font-size: xx-large;" id="btn-remove-item" href="#" title="Remove Task" ng-click="removeTask(al.iIndex, $index)"><i class="ti-close"></i></a>
+                                            </div>
+                                        </div>
+
+                                        <a class="form-group btn btn-sm btn-primary" href="" ng-click="addTask($index)"><i class="ti-plus fs-10"></i> 添加任务</a>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>描述</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group input-group align-items-center" ng-repeat="aldl in al.Decisions">
+                                            <input type="hidden" ng-model="aldl.iIndex = $index" ng-model-options="{getterSetter: true}" />
+                                            <div class="input-group-input" style="width: 95%;">
+                                                <input type="text" class="form-control" ng-model="aldl.vDecisionDetails">
+                                            </div>
+                                            <a class="text-danger pl-12" style="width: 5%; text-align:center;" id="btn-remove-item" href="#" title="Remove Decision" ng-click="removeDecision(al.iIndex, $index)"><i class="ti-close" style="font-size:x-large;"></i></a>
+                                        </div>
+
+                                        <a class="btn btn-sm btn-primary" id="btn-new-item" href="" ng-click="addDecision($index)"><i class="ti-plus fs-10"></i> 添加描述</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.main-content -->
+
+</main>
+
+
+@section scripts{
+    <script src="~/Content/assets/vendor/bootstrap-wizard/bootstrap-wizard.js"></script>
+    <script src="~/Scripts/Projects/Home/Meeting.js"></script>
+}
+
+
