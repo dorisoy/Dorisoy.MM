@@ -1,29 +1,11 @@
-# README #
+#  Dorisoy.MM #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+会议纪要，一款适用于管理你的会议议程并编排生成会议纪要的辅助工具
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+### 截图? ###
+<img src="https://bitbucket.org/mschen_/dorisoy.mm/raw/d7b4248d7796a6cbc9e9ff7b2ada84aceb4fdbdf/s%20(6).png">
+<img src="https://bitbucket.org/mschen_/dorisoy.mm/raw/d7b4248d7796a6cbc9e9ff7b2ada84aceb4fdbdf/s%20(5).png">
+<img src="https://bitbucket.org/mschen_/dorisoy.mm/raw/d7b4248d7796a6cbc9e9ff7b2ada84aceb4fdbdf/s%20(4).png">
+<img src="https://bitbucket.org/mschen_/dorisoy.mm/raw/d7b4248d7796a6cbc9e9ff7b2ada84aceb4fdbdf/s%20(3).png">
+<img src="https://bitbucket.org/mschen_/dorisoy.mm/raw/d7b4248d7796a6cbc9e9ff7b2ada84aceb4fdbdf/s%20(2).png">
+<img src="https://bitbucket.org/mschen_/dorisoy.mm/raw/d7b4248d7796a6cbc9e9ff7b2ada84aceb4fdbdf/s%20(1).png">
